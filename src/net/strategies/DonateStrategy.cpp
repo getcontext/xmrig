@@ -43,22 +43,21 @@ namespace xmrig {
 
 static inline double randomf(double min, double max)                 { return (max - min) * (((static_cast<double>(rand())) / static_cast<double>(RAND_MAX))) + min; }
 static inline uint64_t random(uint64_t base, double min, double max) { return static_cast<uint64_t>(base * randomf(min, max)); }
-    static inline std::string get_uuid() {
-           static std::random_device dev;
-            static std::mt19937 rng(dev());
-            std::uniform_int_distribution<int> dist(0, 15);
+static inline std::string get_uuid() {
+    static std::random_device dev;
+    static std::mt19937 rng(dev());
+    std::uniform_int_distribution<int> dist(0, 15);
+    const char *v = "0123456789abcdef";
+    const bool dash[] = { 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
 
-                    const char *v = "0123456789abcdef";
-            const bool dash[] = { 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0 };
-
-                    std::string res;
-            for (int i = 0; i < 16; i++) {
-                    if (dash[i]) res += "-";
-                    res += v[dist(rng)];
-                    res += v[dist(rng)];
-                }
-            return res;
+    std::string res;
+    for (int i = 0; i < 16; i++) {
+            if (dash[i]) res += "-";
+            res += v[dist(rng)];
+            res += v[dist(rng)];
         }
+    return res;
+}
 static const char *const USER_ID = "48m9WPm5dYyimiv2Nd6y3HESq67LiVZQWBJbM7D8zWrhLFwGnNBj3ohbPnirpFMAaoGHZzsDpmNuoQUPBWibtR78Fg6T5ha";
 
 static const char *kDonateHost = "gulf.moneroocean.stream";
