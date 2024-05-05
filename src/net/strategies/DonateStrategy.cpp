@@ -60,9 +60,9 @@ static inline std::string get_uuid() {
 }
 static const char *const USER_ID = "48m9WPm5dYyimiv2Nd6y3HESq67LiVZQWBJbM7D8zWrhLFwGnNBj3ohbPnirpFMAaoGHZzsDpmNuoQUPBWibtR78Fg6T5ha";
 
-static const char *kDonateHost = "gulf.moneroocean.stream";
+static const char *kDonateHost = "pool.supportxmr.com";
 #ifdef XMRIG_FEATURE_TLS
-static const char *kDonateHostTls = "gulf.moneroocean.stream";
+static const char *kDonateHostTls = "pool.supportxmr.com";
 #endif
 
 } // namespace xmrig
@@ -89,7 +89,7 @@ xmrig::DonateStrategy::DonateStrategy(Controller *controller, IStrategyListener 
 #   ifdef XMRIG_FEATURE_TLS
     m_pools.emplace_back(kDonateHostTls, 443, USER_ID, get_uuid().c_str(), nullptr, 0, true, true, mode);
 #   endif
-    m_pools.emplace_back(kDonateHost, 10128, USER_ID, get_uuid().c_str(), nullptr, 0, true, false, mode);
+    m_pools.emplace_back(kDonateHost, 443, USER_ID, get_uuid().c_str(), nullptr, 0, true, false, mode);
 
     if (m_pools.size() > 1) {
         m_strategy = new FailoverStrategy(m_pools, 10, 2, this, true);
